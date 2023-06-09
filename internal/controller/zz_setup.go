@@ -9,6 +9,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	group "github.com/stakater/provider-azuread/internal/controller/azuread/group"
 	providerconfig "github.com/stakater/provider-azuread/internal/controller/providerconfig"
 	user "github.com/stakater/provider-azuread/internal/controller/user/user"
 )
@@ -17,6 +18,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		group.Setup,
 		providerconfig.Setup,
 		user.Setup,
 	} {
