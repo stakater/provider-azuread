@@ -21,7 +21,7 @@ kind: Provider
 metadata:
   name: provider-azuread
 spec:
-  package: stakater/provider-azuread:v0.1.0
+  package: stakater/provider-azuread:v0.1.1
 EOF
 ```
 
