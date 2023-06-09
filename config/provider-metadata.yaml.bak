@@ -700,10 +700,10 @@ resources:
               manifest: |-
                 {
                   "display_name": "example",
-                  "azuread_id": "${data.azuread_application_azuread.example.azuread_id}"
+                  "template_id": "${data.azuread_application_template.example.template_id}"
                 }
               references:
-                azuread_id: data.azuread_application_azuread.example.azuread_id
+                template_id: data.azuread_application_template.example.template_id
               dependencies:
                 azuread_service_principal.example: |-
                     {
@@ -777,7 +777,7 @@ resources:
             single_page_application.redirect_uris: '- (Optional) A set of URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent. Must be a valid https URL.'
             support_url: '- (Optional) URL of the application''s support page.'
             tags: '- (Optional) A set of tags to apply to the application for configuring specific behaviours of the application and linked service principals. Note that these are not provided for use by practitioners. Cannot be used together with the feature_tags block.'
-            tags.azuread_id: '- (Optional) Unique ID for a azureadd application in the Azure AD App Gallery, from which to create the application. Changing this forces a new resource to be created.'
+            tags.template_id: '- (Optional) Unique ID for a templated application in the Azure AD App Gallery, from which to create the application. Changing this forces a new resource to be created.'
             tags.terms_of_service_url: '- (Optional) URL of the application''s terms of service statement.'
             tags.web: '- (Optional) A web block as documented below, which configures web related settings for this application.'
             web.homepage_url: '- (Optional) Home page or landing page of the application.'
@@ -1250,7 +1250,7 @@ resources:
             object_id: '- The object ID of the custom directory role.'
             permissions: '- (Required) A collection of permissions blocks as documented below.'
             permissions.allowed_resource_actions: '- (Required) A set of tasks that can be performed on a resource. For more information, see the Permissions Reference documentation.'
-            azuread_id: '- (Optional) Custom azuread identifier that is typically used if one needs an identifier to be the same across different directories. Changing this forces a new resource to be created.'
+            template_id: '- (Optional) Custom template identifier that is typically used if one needs an identifier to be the same across different directories. Changing this forces a new resource to be created.'
             version: '- (Required) - The version of the role definition. This can be any arbitrary string between 1-128 characters.'
         importStatements: []
     azuread_directory_role:
@@ -1262,7 +1262,7 @@ resources:
             - name: example
               manifest: |-
                 {
-                  "azuread_id": "00000000-0000-0000-0000-000000000000"
+                  "template_id": "00000000-0000-0000-0000-000000000000"
                 }
             - name: example
               manifest: |-
@@ -1273,7 +1273,7 @@ resources:
             description: '- The description of the directory role.'
             display_name: '- (Optional) The display name of the directory role to activate. Changing this forces a new resource to be created.'
             object_id: '- The object ID of the directory role.'
-            azuread_id: '- (Optional) The object ID of the role azuread from which to activate the directory role. Changing this forces a new resource to be created.'
+            template_id: '- (Optional) The object ID of the role template from which to activate the directory role. Changing this forces a new resource to be created.'
         importStatements: []
     azuread_directory_role_assignment:
         subCategory: Directory Roles
@@ -1285,11 +1285,11 @@ resources:
               manifest: |-
                 {
                   "principal_object_id": "${data.azuread_user.example.object_id}",
-                  "role_id": "${azuread_directory_role.example.azuread_id}"
+                  "role_id": "${azuread_directory_role.example.template_id}"
                 }
               references:
                 principal_object_id: data.azuread_user.example.object_id
-                role_id: azuread_directory_role.example.azuread_id
+                role_id: azuread_directory_role.example.template_id
               dependencies:
                 azuread_directory_role.example: |-
                     {
@@ -1324,11 +1324,11 @@ resources:
                 {
                   "directory_scope_id": "${format(\"/%s\", azuread_application.example.object_id)}",
                   "principal_object_id": "${data.azuread_user.example.object_id}",
-                  "role_id": "${azuread_directory_role.example.azuread_id}"
+                  "role_id": "${azuread_directory_role.example.template_id}"
                 }
               references:
                 principal_object_id: data.azuread_user.example.object_id
-                role_id: azuread_directory_role.example.azuread_id
+                role_id: azuread_directory_role.example.template_id
               dependencies:
                 azuread_application.example: |-
                     {
@@ -1342,7 +1342,7 @@ resources:
             app_scope_id: '- (Optional) Identifier of the app-specific scope when the assignment scope is app-specific. Cannot be used with directory_scope_id. See official documentation for example usage. Changing this forces a new resource to be created.'
             directory_scope_id: '- (Optional) Identifier of the directory object representing the scope of the assignment. Cannot be used with app_scope_id. See official documentation for example usage. Changing this forces a new resource to be created.'
             principal_object_id: '- (Required) The object ID of the principal for you want to create a role assignment. Supported object types are Users, Groups or Service Principals. Changing this forces a new resource to be created.'
-            role_id: '- (Required) The azuread ID (in the case of built-in roles) or object ID (in the case of custom roles) of the directory role you want to assign. Changing this forces a new resource to be created.'
+            role_id: '- (Required) The template ID (in the case of built-in roles) or object ID (in the case of custom roles) of the directory role you want to assign. Changing this forces a new resource to be created.'
         importStatements:
             - terraform import azuread_directory_role_assignment.test ePROZI_iKE653D_d6aoLHyr-lKgHI8ZGiIdz8CLVcng-1
     azuread_directory_role_member:
@@ -1675,7 +1675,7 @@ resources:
                 azuread_application.example: |-
                     {
                       "display_name": "example",
-                      "azuread_id": "${data.azuread_application_azuread.example.azuread_id}"
+                      "template_id": "${data.azuread_application_template.example.template_id}"
                     }
         argumentDocs:
             account_enabled: '- (Optional) Whether or not the service principal account is enabled. Defaults to true.'
@@ -2025,7 +2025,7 @@ resources:
                 {
                   "enabled": true,
                   "service_principal_id": "${azuread_service_principal.example.id}",
-                  "azuread_id": "dataBricks"
+                  "template_id": "dataBricks"
                 }
               references:
                 service_principal_id: azuread_service_principal.example.id
@@ -2039,7 +2039,7 @@ resources:
                           "gallery": true
                         }
                       ],
-                      "azuread_id": "${data.azuread_application_azuread.example.azuread_id}"
+                      "template_id": "${data.azuread_application_template.example.template_id}"
                     }
                 azuread_service_principal.example: |-
                     {
@@ -2068,7 +2068,7 @@ resources:
             schedule.interval: '- The interval between synchronization iterations ISO8601. E.g. PT40M run every 40 minutes.'
             schedule.state: '- State of the job.'
             service_principal_id: '- (Required) The object ID of the service principal for which this synchronization job should be created. Changing this field forces a new resource to be created.'
-            azuread_id: '- (Required) Identifier of the synchronization azuread this job is based on.'
+            template_id: '- (Required) Identifier of the synchronization template this job is based on.'
         importStatements:
             - terraform import azuread_synchronization_job.example 00000000-0000-0000-0000-000000000000/job/dataBricks.f5532fc709734b1a90e8a1fa9fd03a82.8442fd39-2183-419c-8732-74b6ce866bd5
     azuread_synchronization_secret:
@@ -2104,7 +2104,7 @@ resources:
                           "gallery": true
                         }
                       ],
-                      "azuread_id": "${data.azuread_application_azuread.example.azuread_id}"
+                      "template_id": "${data.azuread_application_template.example.template_id}"
                     }
                 azuread_service_principal.example: |-
                     {
