@@ -291,4 +291,4 @@ jobs:
           curl -sL "https://cli.upbound.io" | sh
           sudo mv up /usr/local/bin/
           up login -u ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }} -p ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
-          make publish BRANCH_NAME=${GITHUB_REF##*/}make publish BRANCH_NAME=${GITHUB_REF##*/}
+          make publish BRANCH_NAME=${GITHUB_REF##*/}
